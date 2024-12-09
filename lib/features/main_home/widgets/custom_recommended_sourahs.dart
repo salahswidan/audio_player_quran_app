@@ -8,7 +8,7 @@ class CustomRecommendeSourahs extends StatelessWidget {
     required this.onTap,
     required this.listSouraModel,
   });
-  final GestureTapCallback onTap;
+  final  Function(int index) onTap;
   final List<SouraModel> listSouraModel;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,9 @@ class CustomRecommendeSourahs extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) => InkWell(
-            onTap: onTap,
+            onTap: (){
+              onTap(index);
+            },
             child: CustomReceentlySourahsCard(
               souraModel: listSouraModel[index],
             )),

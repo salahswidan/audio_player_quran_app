@@ -18,6 +18,8 @@ class PlayMusicScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int index = ModalRoute.of(context)!.settings.arguments as int;
+
     return Scaffold(
         extendBodyBehindAppBar:
             true, // to make the background color cover the app bar
@@ -41,6 +43,10 @@ class PlayMusicScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    index.toString(),
+                    style: TextStyle(color: Colors.white),
+                  ),
                   const Spacer(),
                   const CustomSouraDetailsPlayScreen(),
                   const SizedBox(

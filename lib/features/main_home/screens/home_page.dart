@@ -18,6 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: double.infinity,
       decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment(0.20, -0.98),
@@ -38,8 +39,8 @@ class HomePage extends StatelessWidget {
               height: 22,
             ),
             CustomSearchDetails(
-              onTap: () {
-                HomePageControlller.naviagtorToPlaySouraScreen(context);
+              onTap: (index) {
+                HomePageControlller.naviagtorToPlaySouraScreen(context :context,index:index);
               },
               itemCount: 3,
               ListSouraModel: ConstantsValue.listQuarn,
@@ -49,10 +50,11 @@ class HomePage extends StatelessWidget {
             ),
             CustomRecommendeSourahs(
               listSouraModel: ConstantsValue.listQuarn,
-              
-              onTap: () {
-                HomePageControlller.naviagtorToPlaySouraScreen(context);
+              onTap: (index) {
+                                HomePageControlller.naviagtorToPlaySouraScreen(context:context,index: index);
+
               },
+              
             )
           ],
         ),

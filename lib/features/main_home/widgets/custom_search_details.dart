@@ -11,7 +11,8 @@ class CustomSearchDetails extends StatelessWidget {
   });
   final List<SouraModel> ListSouraModel;
   final int itemCount;
-  final GestureTapCallback onTap;
+  final Function(int index) onTap;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,7 +23,9 @@ class CustomSearchDetails extends StatelessWidget {
             //shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => GestureDetector(
-                  onTap: onTap,
+                  onTap:  (){
+              onTap(index);
+            },
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
