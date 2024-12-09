@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment(0.20, -0.98),
               end: Alignment(-0.20, 0.98),
@@ -30,11 +30,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomTextFieldHomePage(),
-            CustomTitleSearchHomePage(
+            const CustomTextFieldHomePage(),
+            const CustomTitleSearchHomePage(
               title: "Recently Played",
             ),
-            SizedBox(
+            const SizedBox(
               height: 22,
             ),
             CustomSearchDetails(
@@ -44,10 +44,14 @@ class HomePage extends StatelessWidget {
               itemCount: 3,
               ListSouraModel: ConstantsValue.listQuarn,
             ),
-            CustomTitleSearchHomePage(
+            const CustomTitleSearchHomePage(
               title: "Recommended Sourahs",
             ),
-            CustomRecommendeSourahs()
+            InkWell(
+                onTap: () {
+                  HomePageControlller.naviagtorToPlaySouraScreen(context);
+                },
+                child: const CustomRecommendeSourahs())
           ],
         ),
       ),

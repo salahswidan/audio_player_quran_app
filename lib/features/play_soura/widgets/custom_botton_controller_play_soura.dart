@@ -25,7 +25,7 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
               height: 36,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                       begin: Alignment(0, -1),
                       end: Alignment(0, 1),
                       colors: [
@@ -46,7 +46,7 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
               height: 36,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                       begin: Alignment(0, -1),
                       end: Alignment(0, 1),
                       colors: [

@@ -11,31 +11,31 @@ class CustomAppBarPlaySouraScreen extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      leading: Icon(
+      leading: const Icon(
         Icons.arrow_left,
         color: Colors.white,
         size: 30,
       ),
-      title: Text(
+      title: const Text(
         "Now playing",
         style: TextStyle(
             color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
       ),
       actions: [
-        Icon(
+        const Icon(
           Icons.share,
           color: Colors.white,
           size: 20,
         ),
-        SizedBox(
+        const SizedBox(
           width: 22,
         ),
-        Icon(
+        const Icon(
           Icons.more_vert_rounded,
           color: Colors.white,
           size: 20,
         ),
-        SizedBox(
+        const SizedBox(
           width: 13,
         ),
       ],
@@ -45,5 +45,5 @@ class CustomAppBarPlaySouraScreen extends StatelessWidget
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

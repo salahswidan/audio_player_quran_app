@@ -19,17 +19,17 @@ class CustomSouraDetailsPlayScreen extends StatelessWidget {
             height: 247,
           ),
         ),
-        Text(
+        const Text(
           "Al-Baqarah",
           style: TextStyle(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.w500),
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
-        Text(
+        const Text(
           "Adeel",
           style:
               TextStyle(color: Color(0xffB1AFE9), fontSize: 12),

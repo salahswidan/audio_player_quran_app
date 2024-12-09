@@ -13,12 +13,12 @@ class CustomRecommendeSourahs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
           height: 10,
         ),
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (context, index) => CustomReceentlySourahsCard(),
+        itemBuilder: (context, index) => const CustomReceentlySourahsCard(),
         itemCount: 10,
       ),
     );

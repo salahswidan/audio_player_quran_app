@@ -20,9 +20,9 @@ class PlayMusicScreen extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar:
             true, // to make the background color cover the app bar
-        appBar: CustomAppBarPlaySouraScreen(),
+        appBar: const CustomAppBarPlaySouraScreen(),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment(0.20, -0.98),
                   end: Alignment(-0.20, 0.98),
@@ -36,21 +36,21 @@ class PlayMusicScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Spacer(),
-                  CustomSouraDetailsPlayScreen(),
-                  SizedBox(
+                  const Spacer(),
+                  const CustomSouraDetailsPlayScreen(),
+                  const SizedBox(
                     height: 29,
                   ),
                   CustomBottonControllerPlaySoura(
                     value: 0.6,
                     onChange: (value) {},
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 23.0),
                     child: CustomTimingWidget(),
                   ),
-                  CustomToolsPlaySoura(),
-                  CustomTools2PlaySoura(),
+                  const CustomToolsPlaySoura(),
+                  const CustomTools2PlaySoura(),
                 ],
               ),
             ),

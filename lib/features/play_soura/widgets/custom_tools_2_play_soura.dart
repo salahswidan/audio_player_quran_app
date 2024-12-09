@@ -12,20 +12,20 @@ class CustomTools2PlaySoura extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+          const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
       decoration: ShapeDecoration(
           color:
               ColorManagers.klightWhiteColor.withOpacity(0.50),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10))),
       margin:
-          EdgeInsets.symmetric(horizontal: 33, vertical: 25),
+          const EdgeInsets.symmetric(horizontal: 33, vertical: 25),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Up Next",
                 style: TextStyle(
                     fontSize: 8,
@@ -34,11 +34,11 @@ class CustomTools2PlaySoura extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                    color: Color(0xff8A86F4).withOpacity(0.50),
+                    color: const Color(0xff8A86F4).withOpacity(0.50),
                     borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                     vertical: 3, horizontal: 10),
-                child: Text(
+                child: const Text(
                   "Up Next",
                   style: TextStyle(
                       fontSize: 8,
@@ -56,19 +56,19 @@ class CustomTools2PlaySoura extends StatelessWidget {
                   width: 55,
                   height: 55,
                 )),
-            title: Text(
+            title: const Text(
               "data",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.w500),
             ),
-            subtitle: Text("data",
+            subtitle: const Text("data",
                 style: TextStyle(
                     color: ColorManagers.klightWhiteColor,
                     fontSize: 12,
                     fontWeight: FontWeight.w500)),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.skip_next,
               color: Colors.white,
             ),

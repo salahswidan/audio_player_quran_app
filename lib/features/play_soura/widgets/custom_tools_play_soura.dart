@@ -12,13 +12,13 @@ class CustomToolsPlaySoura extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(7),
+      padding: const EdgeInsets.all(7),
       decoration: ShapeDecoration(
           color: ColorManagers.klightWhiteColor.withOpacity(0.50),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10))),
-      margin: EdgeInsets.symmetric(horizontal: 89, vertical: 7),
-      child: Row(
+      margin: const EdgeInsets.symmetric(horizontal: 89, vertical: 7),
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Column(
