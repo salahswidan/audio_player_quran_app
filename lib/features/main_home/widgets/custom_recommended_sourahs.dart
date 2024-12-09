@@ -1,14 +1,15 @@
-
-
 import 'package:flutter/material.dart';
-
+import '../../../models/soura_model.dart';
 import 'custom_recently_sourahs_card.dart';
 
 class CustomRecommendeSourahs extends StatelessWidget {
-  const CustomRecommendeSourahs({
+  CustomRecommendeSourahs({
     super.key,
+    required this.onTap,
+    required this.listSouraModel,
   });
-
+  final GestureTapCallback onTap;
+  final List<SouraModel> listSouraModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,8 +19,12 @@ class CustomRecommendeSourahs extends StatelessWidget {
         ),
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemBuilder: (context, index) => const CustomReceentlySourahsCard(),
-        itemCount: 10,
+        itemBuilder: (context, index) => InkWell(
+            onTap: onTap,
+            child: CustomReceentlySourahsCard(
+              souraModel: listSouraModel[index],
+            )),
+        itemCount: listSouraModel.length,
       ),
     );
   }

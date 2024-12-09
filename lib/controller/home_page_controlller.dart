@@ -6,4 +6,7 @@ class HomePageControlller {
   static void naviagtorToPlaySouraScreen(BuildContext context) {
     Navigator.pushNamed(context, RouteNames.kPlaySouraScreen);
   }
+  static void naviagtorToPop(BuildContext context) {
+            Navigator.pop(context);
+  }
 }

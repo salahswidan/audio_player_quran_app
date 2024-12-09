@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 class CustomAppBarPlaySouraScreen extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomAppBarPlaySouraScreen({
-    super.key,
+    super.key, required this.onPressed,
   });
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      leading: const Icon(
+      leading: IconButton(onPressed: onPressed, icon:  const Icon(
         Icons.arrow_left,
         color: Colors.white,
         size: 30,
-      ),
+      ),),
       title: const Text(
         "Now playing",
         style: TextStyle(

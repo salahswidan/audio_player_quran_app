@@ -47,11 +47,13 @@ class HomePage extends StatelessWidget {
             const CustomTitleSearchHomePage(
               title: "Recommended Sourahs",
             ),
-            InkWell(
-                onTap: () {
-                  HomePageControlller.naviagtorToPlaySouraScreen(context);
-                },
-                child: const CustomRecommendeSourahs())
+            CustomRecommendeSourahs(
+              listSouraModel: ConstantsValue.listQuarn,
+              
+              onTap: () {
+                HomePageControlller.naviagtorToPlaySouraScreen(context);
+              },
+            )
           ],
         ),
       ),

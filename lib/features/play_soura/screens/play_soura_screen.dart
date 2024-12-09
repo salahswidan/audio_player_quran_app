@@ -1,3 +1,4 @@
+import 'package:audio_player_app/controller/home_page_controlller.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_app_bar_play_soura_screen.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_botton_controller_play_soura.dart';
 
@@ -20,7 +21,11 @@ class PlayMusicScreen extends StatelessWidget {
     return Scaffold(
         extendBodyBehindAppBar:
             true, // to make the background color cover the app bar
-        appBar: const CustomAppBarPlaySouraScreen(),
+        appBar: CustomAppBarPlaySouraScreen(
+          onPressed: () {
+            HomePageControlller.naviagtorToPop(context);
+          },
+        ),
         body: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(

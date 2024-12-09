@@ -1,25 +1,27 @@
+import 'package:audio_player_app/models/soura_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomReceentlySourahsCard extends StatelessWidget {
   const CustomReceentlySourahsCard({
-    super.key,
+    super.key, required this.souraModel,
   });
+  final SouraModel souraModel;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: AssetImage("assets/images/quran_image/qu3.jpg"),
+        backgroundImage: AssetImage(souraModel.image),
         radius: 35,
       ),
       title: Text(
-        "Al-Baqarah",
+       souraModel.soura,
         style: TextStyle(
             color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
       ),
       subtitle: Text(
-        "Adeel",
+       souraModel.reader,
         style: TextStyle(color: Color(0xffB1AFE9), fontSize: 12),
       ),
       trailing: Icon(
