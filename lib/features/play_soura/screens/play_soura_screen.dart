@@ -3,11 +3,7 @@ import 'package:audio_player_app/controller/play_music_controller.dart';
 import 'package:audio_player_app/core/resourses/constants_value.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_app_bar_play_soura_screen.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_botton_controller_play_soura.dart';
-import 'package:audio_player_app/models/soura_model.dart';
-import 'package:audioplayers/audioplayers.dart';
-
 import 'package:flutter/material.dart';
-
 import '../../../core/resourses/color_managers.dart';
 import '../widgets/custom_soura_details_play_screen.dart';
 import '../widgets/custom_timing_widget.dart';
@@ -46,7 +42,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
 
 
   void dispose() {
-    _playMusicController.disposeAudio();
+   // _playMusicController.disposeAudio();
     super.dispose();
   }
 

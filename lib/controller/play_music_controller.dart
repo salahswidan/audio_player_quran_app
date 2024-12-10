@@ -7,20 +7,34 @@ class PlayMusicController {
   late AudioPlayer audioPlayer;
   late AudioCache audioCache;
   late Uri uri;
-  PlayMusicController(this.index) {
-    audioPlayer = AudioPlayer();
-     audioCache = AudioCache(prefix: "");
+  //! singletonPattern
+  // construtor private
+  //instatance 
+  // default constructor
+  PlayMusicController._internal(this.index){
+      audioCache = AudioCache(prefix: "");
+
+   audioPlayer = AudioPlayer();
+
+  }
+     static PlayMusicController? instance ;
+
+
+
+  factory PlayMusicController( int index) {
+    
+    instance ??= PlayMusicController._internal(index);
+    return instance!;
+    
+   
   }
   void play() async {
-    // uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
-    // audioPlayer.play(UrlSource(uri.toString()));
+    uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
+    audioPlayer.play(UrlSource(uri.toString()));
   }
 
-  void disposeAudio()  {
-    audioPlayer.dispose();
-    // AudioCache audioCache = AudioCache(prefix: "");
-    // Uri uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
-    // AudioPlayer audioPlayer = AudioPlayer();
-    // audioPlayer.dispose();
-  }
+  // void disposeAudio()  {
+  //   audioPlayer.dispose();
+  
+  // }
 }
