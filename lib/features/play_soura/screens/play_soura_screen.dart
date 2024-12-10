@@ -84,7 +84,9 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                     height: 29,
                   ),
                   CustomBottonControllerPlaySoura(
-                    // pathSoura: souraModel.pathSoura,
+                    onStop: (){
+                      _playMusicController.stopAudio();
+                    },
                     value: 0.6,
                     onChange: (value) {},
                   ),

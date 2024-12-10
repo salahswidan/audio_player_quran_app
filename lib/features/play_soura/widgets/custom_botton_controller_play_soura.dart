@@ -7,12 +7,14 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   const CustomBottonControllerPlaySoura({
     super.key,
     required this.onChange,
-    required this.value,
+    required this.value, required this.onStop,
    // required this.pathSoura,
+
   });
  // final SouraModel souraModel;
   final ValueChanged<double> onChange;
   final double value;
+  final GestureTapCallback onStop;
  // final String pathSoura;
 
   @override
@@ -39,11 +41,14 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
               child: Image.asset(
                   "assets/images/controllers_button_music_image/back.png"),
             ),
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: ColorManagers.klightWhiteColor,
-              child: Image.asset(
-                  "assets/images/controllers_button_music_image/pause.png"),
+            InkWell(
+              onTap: onStop,
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: ColorManagers.klightWhiteColor,
+                child: Image.asset(
+                    "assets/images/controllers_button_music_image/pause.png"),
+              ),
             ),
             Container(
               width: 36,
