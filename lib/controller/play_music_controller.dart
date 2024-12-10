@@ -12,8 +12,8 @@ class PlayMusicController {
      audioCache = AudioCache(prefix: "");
   }
   void play() async {
-    uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
-    audioPlayer.play(UrlSource(uri.toString()));
+    // uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
+    // audioPlayer.play(UrlSource(uri.toString()));
   }
 
   void disposeAudio()  {

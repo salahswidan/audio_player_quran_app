@@ -50,14 +50,12 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
     super.dispose();
   }
 
- 
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar:
-            true, // to make the background color cover the app bar
+            true, //! to make the background color cover the app bar
         appBar: CustomAppBarPlaySouraScreen(
           onPressed: () {
             HomePageControlller.naviagtorToPop(context);
@@ -84,7 +82,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                   ),
                   Spacer(),
                   CustomSouraDetailsPlayScreen(
-                      // souraModel: souraModel,
+                       souraModel: ConstantsValue.listQuarn[index],
                       ),
                   const SizedBox(
                     height: 29,
