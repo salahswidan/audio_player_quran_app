@@ -1,6 +1,10 @@
 import 'package:audio_player_app/controller/home_page_controlller.dart';
+import 'package:audio_player_app/controller/play_music_controller.dart';
+import 'package:audio_player_app/core/resourses/constants_value.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_app_bar_play_soura_screen.dart';
 import 'package:audio_player_app/features/play_soura/widgets/custom_botton_controller_play_soura.dart';
+import 'package:audio_player_app/models/soura_model.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:flutter/material.dart';
 
@@ -10,16 +14,47 @@ import '../widgets/custom_timing_widget.dart';
 import '../widgets/custom_tools_2_play_soura.dart';
 import '../widgets/custom_tools_play_soura.dart';
 
-class PlayMusicScreen extends StatelessWidget {
-  const PlayMusicScreen({
+class PlayMusicScreen extends StatefulWidget {
+  PlayMusicScreen({
     super.key,
   });
-  //final SouraModelsouraModel;
 
   @override
-  Widget build(BuildContext context) {
-    int index = ModalRoute.of(context)!.settings.arguments as int;
+  State<PlayMusicScreen> createState() => _PlayMusicScreenState();
+}
 
+class _PlayMusicScreenState extends State<PlayMusicScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  late int index;
+  late PlayMusicController _playMusicController;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    index = ModalRoute.of(context)!.settings.arguments as int;
+    _playMusicController = PlayMusicController(index);
+    _playMusicController.play();
+  }
+
+  @override
+
+
+
+  void dispose() {
+    _playMusicController.disposeAudio();
+    super.dispose();
+  }
+
+ 
+
+  
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar:
             true, // to make the background color cover the app bar
@@ -47,12 +82,15 @@ class PlayMusicScreen extends StatelessWidget {
                     index.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
-                  const Spacer(),
-                  const CustomSouraDetailsPlayScreen(),
+                  Spacer(),
+                  CustomSouraDetailsPlayScreen(
+                      // souraModel: souraModel,
+                      ),
                   const SizedBox(
                     height: 29,
                   ),
                   CustomBottonControllerPlaySoura(
+                    // pathSoura: souraModel.pathSoura,
                     value: 0.6,
                     onChange: (value) {},
                   ),

@@ -1,3 +1,4 @@
+import 'package:audio_player_app/models/soura_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/resourses/color_managers.dart';
@@ -7,9 +8,12 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
     super.key,
     required this.onChange,
     required this.value,
+   // required this.pathSoura,
   });
+ // final SouraModel souraModel;
   final ValueChanged<double> onChange;
   final double value;
+ // final String pathSoura;
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +65,9 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
           ],
         ),
         Slider(
-        
           value: value,
           onChanged: onChange,
           activeColor: ColorManagers.klightWhiteColor,
-          
-          
         )
       ],
     );

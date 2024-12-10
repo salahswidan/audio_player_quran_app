@@ -4,10 +4,11 @@ class SouraModel {
   String reader;
   String soura;
   String pathSoura;
-  SouraModel({
-    required this.image,
-    required this.reader,
-    required this.soura,
-    required this.pathSoura,
-  });
+ 
+  SouraModel(
+      {required this.image,
+      required this.reader,
+      required this.soura,
+      required this.pathSoura,
+       });
 }

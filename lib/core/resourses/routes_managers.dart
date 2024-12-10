@@ -10,7 +10,10 @@ class RoutesManagers {
     RouteNames.kSplashScreen: (context) => const SplashScreen(),
     RouteNames.kOnBoardingScreen: (context) => const OnBoardingScreen(),
     RouteNames.kHomeScreen: (context) => const MainHomeScreen(),
-    RouteNames.kPlaySouraScreen: (context) => const PlayMusicScreen(
+    RouteNames.kPlaySouraScreen: (context) =>  PlayMusicScreen(
+   
+     
+      
       
     ),
   };
