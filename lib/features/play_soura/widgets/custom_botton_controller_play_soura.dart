@@ -9,16 +9,19 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   const CustomBottonControllerPlaySoura({
     super.key,
     required this.onChange,
-    required this.value, required this.onStop, required this.playStatusOutputData,
-   // required this.pathSoura,
-
+    required this.value,
+    required this.onStop,
+    required this.playStatusOutputData,
+    required this.audioTime,
+    // required this.pathSoura,
   });
- // final SouraModel souraModel;
+  // final SouraModel souraModel;
   final ValueChanged<double> onChange;
   final double value;
   final GestureTapCallback onStop;
   final Stream playStatusOutputData;
- // final String pathSoura;
+  final String audioTime;
+  // final String pathSoura;
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +48,20 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
                   "assets/images/controllers_button_music_image/back.png"),
             ),
             InkWell(
-              onTap: onStop,
-              child: StreamBuilder(stream: playStatusOutputData, builder: (context, snapshot) =>
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: ColorManagers.klightWhiteColor,
-                child: Image.asset( snapshot.data == true?
-                    "assets/images/controllers_button_music_image/pause.png" : "assets/images/controllers_button_music_image/play.png") ,
-              ),
-                
-              )
-            ),
+                onTap: onStop,
+                child: StreamBuilder(
+                  stream: playStatusOutputData,
+                  builder: (context, snapshot) => CircleAvatar(
+                    radius: 30,
+                    backgroundColor: ColorManagers.klightWhiteColor,
+                    child: Image.asset(
+                        width: 36,
+                        height: 36,
+                        snapshot.data == true
+                            ? "assets/images/controllers_button_music_image/pause.png"
+                            : "assets/images/controllers_button_music_image/play.png"),
+                  ),
+                )),
             Container(
               width: 36,
               height: 36,
@@ -79,7 +85,31 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
           value: value,
           onChanged: onChange,
           activeColor: ColorManagers.klightWhiteColor,
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 23.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "2.03",
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: ColorManagers.klightWhiteColor),
+              ),
+              Text(
+                audioTime,
+              //"00.00",
+                          //  snapshot.data.toString(),
+               style: TextStyle(
+                   fontSize: 12,
+                   fontWeight: FontWeight.w500,
+                   color: ColorManagers.klightWhiteColor),
+                           ),
+            ],
+          ),
+        ),
       ],
     );
   }

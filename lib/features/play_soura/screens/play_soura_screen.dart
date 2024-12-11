@@ -6,7 +6,6 @@ import 'package:audio_player_app/features/play_soura/widgets/custom_botton_contr
 import 'package:flutter/material.dart';
 import '../../../core/resourses/color_managers.dart';
 import '../widgets/custom_soura_details_play_screen.dart';
-import '../widgets/custom_timing_widget.dart';
 import '../widgets/custom_tools_2_play_soura.dart';
 import '../widgets/custom_tools_play_soura.dart';
 
@@ -34,7 +33,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
     super.didChangeDependencies();
     index = ModalRoute.of(context)!.settings.arguments as int;
     _playMusicController = PlayMusicController(index);
-    _playMusicController.play();
+    // _playMusicController.play();
   }
 
   @override
@@ -53,50 +52,67 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
             HomePageControlller.naviagtorToPop(context);
           },
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment(0.20, -0.98),
-                  end: Alignment(-0.20, 0.98),
-                  colors: [
-                ColorManagers.kPrimaryColor,
-                ColorManagers.kDarkBlueeColor
-              ])),
-          child: SafeArea(
-            child: Container(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    index.toString(),
-                    style: TextStyle(color: Colors.white),
+        body: FutureBuilder(
+          future: _playMusicController.play(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              return Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment(0.20, -0.98),
+                        end: Alignment(-0.20, 0.98),
+                        colors: [
+                      ColorManagers.kPrimaryColor,
+                      ColorManagers.kDarkBlueeColor
+                    ])),
+                child: SafeArea(
+                  child: Container(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          index.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Spacer(),
+                        CustomSouraDetailsPlayScreen(
+                          souraModel: ConstantsValue.listQuarn[index],
+                        ),
+                        const SizedBox(
+                          height: 29,
+                        ),
+                        CustomBottonControllerPlaySoura(
+                          //  future: _playMusicController.myDuration(),
+                         
+                          audioTime: snapshot.data.toString(),
+                          playStatusOutputData:
+                              _playMusicController.playStatusOutputData,
+                          onStop: () {
+                            _playMusicController.changePlayStatus();
+                          },
+                          value: 0.6,
+                          onChange: (value) {},
+                        ),
+                        const CustomToolsPlaySoura(),
+                        const CustomTools2PlaySoura(),
+                      ],
+                    ),
                   ),
-                  Spacer(),
-                  CustomSouraDetailsPlayScreen(
-                    souraModel: ConstantsValue.listQuarn[index],
-                  ),
-                  const SizedBox(
-                    height: 29,
-                  ),
-                  CustomBottonControllerPlaySoura(
-                    playStatusOutputData: _playMusicController.playStatusOutputData,
-                    onStop: () {
-                      _playMusicController.changePlayStatus();
-                    },
-                    value: 0.6,
-                    onChange: (value) {},
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 23.0),
-                    child: CustomTimingWidget(),
-                  ),
-                  const CustomToolsPlaySoura(),
-                  const CustomTools2PlaySoura(),
-                ],
-              ),
-            ),
-          ),
+                ),
+                );
+            }
+            else{
+              return Center(
+                child: Text("error"),
+              );
+            }
+          
+          },
         ));
   }
 }

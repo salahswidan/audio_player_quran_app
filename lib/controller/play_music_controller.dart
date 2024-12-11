@@ -12,6 +12,8 @@ class PlayMusicController {
   late StreamController<bool> playStatusStreamController;
   late Sink<bool> playStatusInputData;
   late Stream<bool> playStatusOutputData;
+ 
+
   late bool isPlaying;
   //! singletonPattern
   // construtor private
@@ -23,18 +25,34 @@ class PlayMusicController {
     playStatusStreamController = StreamController();
     playStatusInputData = playStatusStreamController.sink;
     playStatusOutputData = playStatusStreamController.stream;
+    playStatusOutputData =
+        playStatusStreamController.stream.asBroadcastStream();
+   
   }
   static PlayMusicController? instance;
 
   factory PlayMusicController(int index) {
+    if (instance != null) instance!.index = index;
     instance ??= PlayMusicController._internal(index);
     return instance!;
   }
-  void play() async {
+  Duration? audioTime;
+  Future<Duration?> play() async {
     uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
-    audioPlayer.play(UrlSource(uri.toString()));
+    await audioPlayer.play(UrlSource(uri.toString()));
+    audioTime = await audioPlayer.getDuration();
+   // audioTimeInputData.add(audioTime!);
+    print(audioTime);
     isPlaying = true;
     playStatusInputData.add(isPlaying);
+    return audioTime!;
+  }
+
+  Future<String> myDuration() async {
+    //   audioTime = await audioPlayer.getDuration();
+   await Future.delayed(Duration(seconds: 4));
+    //  return audioTime;
+    return "hello";
   }
 
   void changePlayStatus() {
@@ -48,8 +66,8 @@ class PlayMusicController {
     playStatusInputData.add(isPlaying);
   }
 
-  // void disposeAudio()  {
-  //   audioPlayer.dispose();
-
-  // }
+  void disposeAudio() {
+    playStatusInputData.close();
+    playStatusStreamController.close();
+  }
 }
