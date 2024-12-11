@@ -87,9 +87,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           height: 29,
                         ),
                         CustomBottonControllerPlaySoura(
-                          //  future: _playMusicController.myDuration(),
-                         
-                          audioTime: snapshot.data.toString(),
+                          audioTime: _playMusicController.transferDurationToMinuteAndSecond(snapshot.data),
                           playStatusOutputData:
                               _playMusicController.playStatusOutputData,
                           onStop: () {
@@ -104,14 +102,12 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                     ),
                   ),
                 ),
-                );
-            }
-            else{
+              );
+            } else {
               return Center(
                 child: Text("error"),
               );
             }
-          
           },
         ));
   }

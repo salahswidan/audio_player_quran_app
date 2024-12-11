@@ -12,7 +12,6 @@ class PlayMusicController {
   late StreamController<bool> playStatusStreamController;
   late Sink<bool> playStatusInputData;
   late Stream<bool> playStatusOutputData;
- 
 
   late bool isPlaying;
   //! singletonPattern
@@ -27,7 +26,6 @@ class PlayMusicController {
     playStatusOutputData = playStatusStreamController.stream;
     playStatusOutputData =
         playStatusStreamController.stream.asBroadcastStream();
-   
   }
   static PlayMusicController? instance;
 
@@ -41,7 +39,7 @@ class PlayMusicController {
     uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
     await audioPlayer.play(UrlSource(uri.toString()));
     audioTime = await audioPlayer.getDuration();
-   // audioTimeInputData.add(audioTime!);
+    // audioTimeInputData.add(audioTime!);
     print(audioTime);
     isPlaying = true;
     playStatusInputData.add(isPlaying);
@@ -50,7 +48,7 @@ class PlayMusicController {
 
   Future<String> myDuration() async {
     //   audioTime = await audioPlayer.getDuration();
-   await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 4));
     //  return audioTime;
     return "hello";
   }
@@ -69,5 +67,11 @@ class PlayMusicController {
   void disposeAudio() {
     playStatusInputData.close();
     playStatusStreamController.close();
+  }
+
+  String transferDurationToMinuteAndSecond(Duration? duration) {
+    String minute = duration!.inMinutes.remainder(60).toString().padLeft(2, "0");
+    String second = duration!.inSeconds.remainder(60).toString().padLeft(2, "0");
+    return "${minute}:${second}";
   }
 }
