@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audio_player_app/models/soura_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,7 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   const CustomBottonControllerPlaySoura({
     super.key,
     required this.onChange,
-    required this.value, required this.onStop,
+    required this.value, required this.onStop, required this.playStatusOutputData,
    // required this.pathSoura,
 
   });
@@ -15,6 +17,7 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   final ValueChanged<double> onChange;
   final double value;
   final GestureTapCallback onStop;
+  final Stream playStatusOutputData;
  // final String pathSoura;
 
   @override
@@ -43,12 +46,15 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
             ),
             InkWell(
               onTap: onStop,
-              child: CircleAvatar(
+              child: StreamBuilder(stream: playStatusOutputData, builder: (context, snapshot) =>
+              CircleAvatar(
                 radius: 30,
                 backgroundColor: ColorManagers.klightWhiteColor,
-                child: Image.asset(
-                    "assets/images/controllers_button_music_image/pause.png"),
+                child: Image.asset( snapshot.data == true?
+                    "assets/images/controllers_button_music_image/pause.png" : "assets/images/controllers_button_music_image/play.png") ,
               ),
+                
+              )
             ),
             Container(
               width: 36,

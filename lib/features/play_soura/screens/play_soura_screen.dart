@@ -38,14 +38,10 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
   }
 
   @override
-
-
-
   void dispose() {
-   // _playMusicController.disposeAudio();
+    // _playMusicController.disposeAudio();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +74,15 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                   ),
                   Spacer(),
                   CustomSouraDetailsPlayScreen(
-                       souraModel: ConstantsValue.listQuarn[index],
-                      ),
+                    souraModel: ConstantsValue.listQuarn[index],
+                  ),
                   const SizedBox(
                     height: 29,
                   ),
                   CustomBottonControllerPlaySoura(
-                    onStop: (){
-                      _playMusicController.stopAudio();
+                    playStatusOutputData: _playMusicController.playStatusOutputData,
+                    onStop: () {
+                      _playMusicController.changePlayStatus();
                     },
                     value: 0.6,
                     onChange: (value) {},
