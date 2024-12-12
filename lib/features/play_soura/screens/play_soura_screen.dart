@@ -87,15 +87,22 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           height: 29,
                         ),
                         CustomBottonControllerPlaySoura(
-                          durationNowOutputData: _playMusicController.durationNowOutputData,
-                          audioTime: _playMusicController.transferDurationToMinuteAndSecond(snapshot.data),
+                          onChangedSlider: (value) {
+                            _playMusicController.onChangedThumbSlider(value);
+                          },
+                          sliderValueOutputData:
+                              _playMusicController.sliderValueOutputData,
+                          durationNowOutputData:
+                              _playMusicController.durationNowOutputData,
+                          audioTime: _playMusicController
+                              .transferDurationToMinuteAndSecond(snapshot.data),
                           playStatusOutputData:
                               _playMusicController.playStatusOutputData,
                           onStop: () {
                             _playMusicController.changePlayStatus();
                           },
-                          value: 0.6,
-                          onChange: (value) {},
+                          // value: 0.6,
+                          // onChange: (value) {},
                         ),
                         const CustomToolsPlaySoura(),
                         const CustomTools2PlaySoura(),

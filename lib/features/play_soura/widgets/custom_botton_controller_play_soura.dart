@@ -1,25 +1,23 @@
 import 'dart:async';
-
-import 'package:audio_player_app/models/soura_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/resourses/color_managers.dart';
 
 class CustomBottonControllerPlaySoura extends StatelessWidget {
   const CustomBottonControllerPlaySoura({
     super.key,
-    required this.onChange,
-    required this.value,
+     required this.onChangedSlider,
+    // required this.value,
     required this.onStop,
     required this.playStatusOutputData,
-    required this.audioTime, required this.durationNowOutputData,
+    required this.audioTime, required this.durationNowOutputData, required this.sliderValueOutputData,
   });
-  final ValueChanged<double> onChange;
-  final double value;
+   final ValueChanged<double> onChangedSlider;
+  // final double value;
   final GestureTapCallback onStop;
   final Stream playStatusOutputData;
   final String audioTime;
   final Stream<String> durationNowOutputData;
+  final Stream<double> sliderValueOutputData;
 
 
   @override
@@ -80,11 +78,14 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
                 "assets/images/controllers_button_music_image/loop.png"),
           ],
         ),
-        Slider(
-          value: value,
-          onChanged: onChange,
+      StreamBuilder<double>
+      (stream: sliderValueOutputData, builder: (context,snapshot)=> 
+       Slider(
+        
+           value:snapshot.data == null ? 0: snapshot.data!.toDouble(),
+           onChanged: onChangedSlider,
           activeColor: ColorManagers.klightWhiteColor,
-        ),
+        ),),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 23.0),
           child: Row(

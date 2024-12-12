@@ -15,6 +15,10 @@ class PlayMusicController {
   late StreamController<Duration> durationNowStreamController;
   late Sink<Duration> durationNowInputData;
   late Stream<String> durationNowOutputData;
+  late StreamController<Duration> sliderValueStreamController;
+  late Sink<Duration> sliderValueInputData;
+  late Stream<double> sliderValueOutputData;
+  late double valueSlider = 0;
 
   late bool isPlaying = true;
   //! singletonPattern
@@ -30,11 +34,23 @@ class PlayMusicController {
     playStatusOutputData =
         playStatusStreamController.stream.asBroadcastStream();
 
+    sliderValueStreamController = StreamController();
+    sliderValueInputData = sliderValueStreamController.sink;
+    sliderValueOutputData = sliderValueStreamController.stream.map(
+      (event) => transferDurationToValueSlider(event),
+    );
+    sliderValueOutputData = sliderValueStreamController.stream.map(
+      (event) => transferDurationToValueSlider(event),
+    );
     durationNowStreamController = StreamController();
     durationNowInputData = durationNowStreamController.sink;
-    durationNowOutputData = durationNowStreamController.stream.map((event) => transferDurationToMinuteAndSecond(event),);
+    durationNowOutputData = durationNowStreamController.stream.map(
+      (event) => transferDurationToMinuteAndSecond(event),
+    );
     durationNowOutputData =
-        durationNowStreamController.stream.asBroadcastStream().map((event) => transferDurationToMinuteAndSecond(event),);
+        durationNowStreamController.stream.asBroadcastStream().map(
+              (event) => transferDurationToMinuteAndSecond(event),
+            );
   }
   static PlayMusicController? instance;
 
@@ -44,14 +60,32 @@ class PlayMusicController {
     return instance!;
   }
   Duration? audioTime;
+
+  double transferDurationToValueSlider(Duration duration) {
+    double durationNowInsecond = duration.inSeconds.toDouble();
+    double maxTime = audioTime!.inSeconds.toDouble();
+    valueSlider = (durationNowInsecond / maxTime) * 1.0;
+    return valueSlider;
+  }
+
+  void onChangedThumbSlider(double value) {
+    Duration duration = transferValueSliderToDuration(value);
+    audioPlayer.seek(duration);
+  }
+
+  Duration transferValueSliderToDuration(double sliderValue) {
+    double valueNow = (sliderValue / 1.0) * audioTime!.inSeconds.toDouble();
+    return Duration(seconds: valueNow.toInt());
+  }
+
   Future<Duration?> play() async {
     uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
     await audioPlayer.play(UrlSource(uri.toString()));
     audioTime = await audioPlayer.getDuration();
     audioPlayer.onPositionChanged.listen((event) {
       durationNowInputData.add(event);
+      sliderValueInputData.add(event);
     });
-    // audioTimeInputData.add(audioTime!);
     print(audioTime);
     isPlaying = true;
     playStatusInputData.add(isPlaying);
@@ -59,7 +93,6 @@ class PlayMusicController {
   }
 
   Future<String> myDuration() async {
-    //   audioTime = await audioPlayer.getDuration();
     await Future.delayed(Duration(seconds: 4));
     //  return audioTime;
     return "hello";
