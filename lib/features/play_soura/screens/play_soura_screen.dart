@@ -87,6 +87,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           height: 29,
                         ),
                         CustomBottonControllerPlaySoura(
+                          durationNowOutputData: _playMusicController.durationNowOutputData,
                           audioTime: _playMusicController.transferDurationToMinuteAndSecond(snapshot.data),
                           playStatusOutputData:
                               _playMusicController.playStatusOutputData,

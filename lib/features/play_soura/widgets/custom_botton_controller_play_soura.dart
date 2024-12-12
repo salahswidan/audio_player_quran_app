@@ -12,16 +12,15 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
     required this.value,
     required this.onStop,
     required this.playStatusOutputData,
-    required this.audioTime,
-    // required this.pathSoura,
+    required this.audioTime, required this.durationNowOutputData,
   });
-  // final SouraModel souraModel;
   final ValueChanged<double> onChange;
   final double value;
   final GestureTapCallback onStop;
   final Stream playStatusOutputData;
   final String audioTime;
-  // final String pathSoura;
+  final Stream<String> durationNowOutputData;
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,17 +90,19 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+             StreamBuilder<String>(
+              stream: durationNowOutputData,
+              builder: (context, snapshot) =>
               Text(
-                "2.03",
+                snapshot.data.toString(),
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: ColorManagers.klightWhiteColor),
-              ),
+              ),),
               Text(
                 audioTime,
-              //"00.00",
-                          //  snapshot.data.toString(),
+             
                style: TextStyle(
                    fontSize: 12,
                    fontWeight: FontWeight.w500,
