@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:audioplayers/audioplayers.dart';
 
@@ -36,11 +37,12 @@ class PlayMusicController {
 
     sliderValueStreamController = StreamController();
     sliderValueInputData = sliderValueStreamController.sink;
-    sliderValueOutputData = sliderValueStreamController.stream.map(
+    sliderValueOutputData = sliderValueStreamController.stream.asBroadcastStream().
+    map(
       (event) => transferDurationToValueSlider(event),
     );
-    sliderValueOutputData = sliderValueStreamController.stream.map(
-      (event) => transferDurationToValueSlider(event),
+    sliderValueOutputData = sliderValueStreamController.stream.asBroadcastStream()
+    .map((event) => transferDurationToValueSlider(event),
     );
     durationNowStreamController = StreamController();
     durationNowInputData = durationNowStreamController.sink;
@@ -71,6 +73,15 @@ class PlayMusicController {
   void onChangedThumbSlider(double value) {
     Duration duration = transferValueSliderToDuration(value);
     audioPlayer.seek(duration);
+  }
+
+  void onNextTap() {
+    if (index < ConstantsValue.listQuarn.length - 1) {
+      index++;
+    } else {
+      index = 0;
+    }
+    play();
   }
 
   Duration transferValueSliderToDuration(double sliderValue) {

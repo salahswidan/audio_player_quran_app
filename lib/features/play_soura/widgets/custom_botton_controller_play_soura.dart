@@ -9,7 +9,7 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
     // required this.value,
     required this.onStop,
     required this.playStatusOutputData,
-    required this.audioTime, required this.durationNowOutputData, required this.sliderValueOutputData,
+    required this.audioTime, required this.durationNowOutputData, required this.sliderValueOutputData, required this.onTapNext, required this.onTapBack,
   });
    final ValueChanged<double> onChangedSlider;
   // final double value;
@@ -18,6 +18,8 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   final String audioTime;
   final Stream<String> durationNowOutputData;
   final Stream<double> sliderValueOutputData;
+  final GestureTapCallback onTapNext;
+  final GestureTapCallback onTapBack;
 
 
   @override
@@ -41,8 +43,11 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
                         ColorManagers.klightWhiteColor,
                         ColorManagers.kthridPrimaryColor,
                       ])),
-              child: Image.asset(
-                  "assets/images/controllers_button_music_image/back.png"),
+              child: InkWell(
+                onTap: onTapBack,
+                child: Image.asset(
+                    "assets/images/controllers_button_music_image/back.png"),
+              ),
             ),
             InkWell(
                 onTap: onStop,
@@ -71,8 +76,11 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
                         Color(0xffB1AFE9),
                         ColorManagers.kthridPrimaryColor,
                       ])),
-              child: Image.asset(
-                  "assets/images/controllers_button_music_image/next.png"),
+              child: InkWell(
+                onTap: onTapNext,
+                child: Image.asset(
+                    "assets/images/controllers_button_music_image/next.png"),
+              ),
             ),
             Image.asset(
                 "assets/images/controllers_button_music_image/loop.png"),

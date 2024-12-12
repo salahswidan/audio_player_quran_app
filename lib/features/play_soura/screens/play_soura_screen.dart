@@ -87,6 +87,10 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           height: 29,
                         ),
                         CustomBottonControllerPlaySoura(
+                          onTapBack: () {},
+                          onTapNext: () {
+                            _playMusicController.onNextTap();
+                          },
                           onChangedSlider: (value) {
                             _playMusicController.onChangedThumbSlider(value);
                           },
