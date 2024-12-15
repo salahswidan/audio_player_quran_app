@@ -5,12 +5,13 @@ class CustomTextFieldHomePage extends StatelessWidget {
     super.key,
     required this.onTap,
     this.isSearchNow = false,
-    required this.onTapCloseIcon, required this.streamCloseStatus,
+    required this.onTapCloseIcon, required this.streamCloseStatus, required this.onSubmitted,
   });
   final GestureTapCallback onTap;
   final GestureTapCallback onTapCloseIcon;
   final bool isSearchNow;
   final Stream streamCloseStatus;
+  final ValueChanged<String> onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class CustomTextFieldHomePage extends StatelessWidget {
         stream: streamCloseStatus,
         builder: (context, snapshot) => 
          TextField( 
+          onSubmitted: onSubmitted,
           onTap: onTap,
           decoration: InputDecoration(
             suffixIcon: snapshot.data == true

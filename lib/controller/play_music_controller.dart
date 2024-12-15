@@ -87,7 +87,7 @@ class PlayMusicController {
     double durationNowInsecond = duration.inSeconds.toDouble();
     double maxTime = audioTime!.inSeconds.toDouble();
     valueSlider = (durationNowInsecond / maxTime) * 1.0;
-    valueSlider= valueSlider > 1 ? 1 : valueSlider;
+    valueSlider = valueSlider > 1 ? 1 : valueSlider;
     return valueSlider;
   }
 
@@ -172,6 +172,16 @@ class PlayMusicController {
   void disposeAudio() {
     playStatusInputData.close();
     playStatusStreamController.close();
+  playStatusInputData.close();
+    durationNowStreamController.close();
+     durationNowInputData.close();
+    sliderValueStreamController.close();
+ sliderValueInputData.close();
+   detailsStreamController.close();
+    detailseInputData.close();
+    loopStatusStreamController.close();
+loopStatusInputData.close();
+    audioCache.clearAll();
   }
 
   String transferDurationToMinuteAndSecond(Duration? duration) {

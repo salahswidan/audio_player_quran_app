@@ -1,7 +1,7 @@
 import 'dart:async';
-
+import 'package:audio_player_app/core/resourses/constants_value.dart';
+import 'package:audio_player_app/models/soura_model.dart';
 import 'package:flutter/material.dart';
-
 import '../core/resourses/routes_managers.dart';
 
 class HomePageControlller {
@@ -13,6 +13,12 @@ class HomePageControlller {
   late StreamController<bool> closeStatusSearchStreamController;
   late Sink<bool> closeStatusSearchInputData;
   late Stream<bool> closeStatusSearchOutputData;
+
+  late StreamController<List<SouraModel>>listSearchOutPutDataStreamController;
+  late Sink<List<SouraModel>> listSearchOutPutDataInputData;
+  late Stream<List<SouraModel>> listSearchOutPutDataOutputData;
+
+  List<SouraModel> listSearchModel = [];
   HomePageControlller() {
     tappedStatusSearchStreamController = StreamController();
     tappedStatusSearchInputData = tappedStatusSearchStreamController.sink;
@@ -23,6 +29,10 @@ class HomePageControlller {
     closeStatusSearchInputData = closeStatusSearchStreamController.sink;
     closeStatusSearchOutputData = closeStatusSearchStreamController.stream;
     closeStatusSearchInputData.add(tappedOnSearchTextField);
+
+     listSearchOutPutDataStreamController = StreamController();
+    listSearchOutPutDataInputData = listSearchOutPutDataStreamController.sink;
+    listSearchOutPutDataOutputData = listSearchOutPutDataStreamController.stream;
   }
   static void naviagtorToPlaySouraScreen(
       {required BuildContext context, required int index}) {
@@ -47,8 +57,20 @@ class HomePageControlller {
   void onTapOutsideSearchTextField() {
     tappedOnSearchTextField = false;
     tappedStatusSearchInputData.add(tappedOnSearchTextField);
-        closeStatusSearchInputData.add(tappedOnSearchTextField);
+    closeStatusSearchInputData.add(tappedOnSearchTextField);
+    listSearchOutPutDataInputData.add(listSearchModel);
 
     FocusManager.instance.primaryFocus?.unfocus();
+  } 
+
+  void searchAboutSong(String value) {
+    List<SouraModel> a = ConstantsValue.listQuarn
+        .where((element) => element.soura.toLowerCase().contains(value))
+        .toList();
+    listSearchModel.clear();
+    listSearchModel = a;
+        listSearchOutPutDataInputData.add(listSearchModel);
+
+    // for (SouraModel s in a) print(s.reader);
   }
 }

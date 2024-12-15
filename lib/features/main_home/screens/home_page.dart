@@ -51,7 +51,11 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextFieldHomePage(
-              streamCloseStatus: homePageControlller.closeStatusSearchOutputData,
+              onSubmitted: (value) {
+                homePageControlller.searchAboutSong(value);
+              },
+              streamCloseStatus:
+                  homePageControlller.closeStatusSearchOutputData,
               onTapCloseIcon: () {
                 homePageControlller.onTapOutsideSearchTextField();
               },
@@ -68,7 +72,10 @@ class _HomePageState extends State<HomePage> {
                   if (snapshot.data == null || snapshot.data == false) {
                     return SizedBox();
                   } else
-                    return CustomSearchFeature();
+                    return CustomSearchFeature(
+                      listSearchOutPutData: homePageControlller.listSearchOutPutDataOutputData,
+
+                    );
                 }),
             const CustomTitleSearchHomePage(
               title: "Recommended Sourahs",
