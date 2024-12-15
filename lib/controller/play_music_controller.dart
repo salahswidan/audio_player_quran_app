@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:ffi';
+import 'dart:math';
+// import 'dart:nativewrappers/_internal/vm/lib/math_patch.dart';
 
 import 'package:audioplayers/audioplayers.dart';
 
@@ -19,9 +20,16 @@ class PlayMusicController {
   late StreamController<Duration> sliderValueStreamController;
   late Sink<Duration> sliderValueInputData;
   late Stream<double> sliderValueOutputData;
-  late double valueSlider = 0;
+  late StreamController<int> detailsStreamController;
+  late Sink<int> detailseInputData;
+  late Stream<int> detailsOutputData;
+  late StreamController<bool> loopStatusStreamController;
+  late Sink<bool> loopStatusInputData;
+  late Stream<bool> loopStatusOutputData;
 
-  late bool isPlaying = true;
+  double valueSlider = 0;
+  bool isPlaying = true;
+  bool loopStatus = false;
   //! singletonPattern
   // construtor private
   //instatance
@@ -31,19 +39,31 @@ class PlayMusicController {
     audioPlayer = AudioPlayer();
     playStatusStreamController = StreamController();
     playStatusInputData = playStatusStreamController.sink;
-    playStatusOutputData = playStatusStreamController.stream;
+
     playStatusOutputData =
         playStatusStreamController.stream.asBroadcastStream();
 
+    detailsStreamController = StreamController();
+    detailseInputData = detailsStreamController.sink;
+
+    detailsOutputData = detailsStreamController.stream.asBroadcastStream();
+
+    loopStatusStreamController = StreamController();
+    loopStatusInputData = loopStatusStreamController.sink;
+
+    loopStatusOutputData =
+        loopStatusStreamController.stream.asBroadcastStream();
+
     sliderValueStreamController = StreamController();
     sliderValueInputData = sliderValueStreamController.sink;
-    sliderValueOutputData = sliderValueStreamController.stream.asBroadcastStream().
-    map(
-      (event) => transferDurationToValueSlider(event),
-    );
-    sliderValueOutputData = sliderValueStreamController.stream.asBroadcastStream()
-    .map((event) => transferDurationToValueSlider(event),
-    );
+    sliderValueOutputData =
+        sliderValueStreamController.stream.asBroadcastStream().map(
+              (event) => transferDurationToValueSlider(event),
+            );
+    sliderValueOutputData =
+        sliderValueStreamController.stream.asBroadcastStream().map(
+              (event) => transferDurationToValueSlider(event),
+            );
     durationNowStreamController = StreamController();
     durationNowInputData = durationNowStreamController.sink;
     durationNowOutputData = durationNowStreamController.stream.map(
@@ -67,6 +87,7 @@ class PlayMusicController {
     double durationNowInsecond = duration.inSeconds.toDouble();
     double maxTime = audioTime!.inSeconds.toDouble();
     valueSlider = (durationNowInsecond / maxTime) * 1.0;
+    valueSlider= valueSlider > 1 ? 1 : valueSlider;
     return valueSlider;
   }
 
@@ -84,6 +105,26 @@ class PlayMusicController {
     play();
   }
 
+  void onBackTap() {
+    if (index == 0) {
+      index = ConstantsValue.listQuarn.length - 1;
+    } else {
+      index--;
+    }
+    play();
+  }
+
+  void onTaploop() {
+    if (audioPlayer.releaseMode == ReleaseMode.loop) {
+      audioPlayer.setReleaseMode(ReleaseMode.release);
+      loopStatus = false;
+    } else {
+      audioPlayer.setReleaseMode(ReleaseMode.loop);
+      loopStatus = true;
+    }
+    loopStatusInputData.add(loopStatus);
+  }
+
   Duration transferValueSliderToDuration(double sliderValue) {
     double valueNow = (sliderValue / 1.0) * audioTime!.inSeconds.toDouble();
     return Duration(seconds: valueNow.toInt());
@@ -93,13 +134,21 @@ class PlayMusicController {
     uri = await audioCache.load(ConstantsValue.listQuarn[index!].pathSoura);
     await audioPlayer.play(UrlSource(uri.toString()));
     audioTime = await audioPlayer.getDuration();
+    detailseInputData.add(index);
     audioPlayer.onPositionChanged.listen((event) {
+      playStatusInputData.add(isPlaying);
+
       durationNowInputData.add(event);
       sliderValueInputData.add(event);
     });
+    audioPlayer.onPlayerComplete.listen(
+      (event) {
+        print("done");
+        onNextTap();
+      },
+    );
     print(audioTime);
     isPlaying = true;
-    playStatusInputData.add(isPlaying);
     return audioTime!;
   }
 
@@ -131,5 +180,12 @@ class PlayMusicController {
     String second =
         duration!.inSeconds.remainder(60).toString().padLeft(2, "0");
     return "${minute}:${second}";
+  }
+
+  void onTapRandom() {
+    int i = Random().nextInt(ConstantsValue.listQuarn.length);
+    if (i == index) i = Random().nextInt(ConstantsValue.listQuarn.length);
+    index = i;
+    play();
   }
 }

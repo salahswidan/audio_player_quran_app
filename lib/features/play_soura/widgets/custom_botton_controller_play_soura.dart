@@ -6,20 +6,21 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
   const CustomBottonControllerPlaySoura({
     super.key,
      required this.onChangedSlider,
-    // required this.value,
     required this.onStop,
     required this.playStatusOutputData,
-    required this.audioTime, required this.durationNowOutputData, required this.sliderValueOutputData, required this.onTapNext, required this.onTapBack,
+    required this.audioTime, required this.durationNowOutputData, required this.sliderValueOutputData, required this.onTapNext, required this.onTapBack, required this.onTabLoop, required this.loopStatusOutputData, required this.onTabRandom,
   });
    final ValueChanged<double> onChangedSlider;
-  // final double value;
   final GestureTapCallback onStop;
   final Stream playStatusOutputData;
   final String audioTime;
   final Stream<String> durationNowOutputData;
   final Stream<double> sliderValueOutputData;
+  final Stream<bool> loopStatusOutputData;
   final GestureTapCallback onTapNext;
   final GestureTapCallback onTapBack;
+  final GestureTapCallback onTabLoop;
+  final GestureTapCallback onTabRandom;
 
 
   @override
@@ -29,8 +30,11 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset(
-                "assets/images/controllers_button_music_image/random.png"),
+            InkWell(
+              onTap: onTabRandom ,
+              child: Image.asset(
+                  "assets/images/controllers_button_music_image/random.png"),
+            ),
             Container(
               width: 36,
               height: 36,
@@ -82,8 +86,13 @@ class CustomBottonControllerPlaySoura extends StatelessWidget {
                     "assets/images/controllers_button_music_image/next.png"),
               ),
             ),
-            Image.asset(
-                "assets/images/controllers_button_music_image/loop.png"),
+            InkWell(
+              onTap: onTabLoop,
+              child: StreamBuilder(stream: loopStatusOutputData, builder:
+               (context,snapshot)=>    Image.asset(
+                snapshot.data == null ?
+                  "assets/images/controllers_button_music_image/loop.png": "assets/images/controllers_button_music_image/loop_active.png"),),
+            )
           ],
         ),
       StreamBuilder<double>

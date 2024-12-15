@@ -80,14 +80,30 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         Spacer(),
-                        CustomSouraDetailsPlayScreen(
-                          souraModel: ConstantsValue.listQuarn[index],
+                        StreamBuilder(
+                          stream: _playMusicController.detailsOutputData,
+                          builder: (context, snapshot) =>
+                              CustomSouraDetailsPlayScreen(
+                            souraModel: ConstantsValue
+                                .listQuarn[snapshot.data ?? index],
+                          ),
                         ),
                         const SizedBox(
                           height: 29,
                         ),
                         CustomBottonControllerPlaySoura(
-                          onTapBack: () {},
+                          onTabRandom: () {
+                            _playMusicController.onTapRandom();
+                          },
+                          loopStatusOutputData:
+                              _playMusicController.loopStatusOutputData,
+                          onTabLoop: () {
+                            _playMusicController.onTaploop();
+                          },
+
+                          onTapBack: () {
+                            _playMusicController.onBackTap();
+                          },
                           onTapNext: () {
                             _playMusicController.onNextTap();
                           },

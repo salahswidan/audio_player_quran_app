@@ -9,11 +9,30 @@ import 'package:flutter/rendering.dart';
 import '../../../core/resourses/color_managers.dart';
 import '../widgets/custom_recommended_sourahs.dart';
 import '../widgets/custom_search_details.dart';
+import '../widgets/custom_search_feature.dart';
 import '../widgets/custom_text_field_home_page.dart';
 import '../widgets/custom_title_search_home_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late HomePageControlller homePageControlller;
+  @override
+  void initState() {
+    super.initState();
+    homePageControlller = HomePageControlller();
+  }
+
+  @override
+  void dispose() {
+    homePageControlller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,30 +50,35 @@ class HomePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomTextFieldHomePage(),
-            const CustomTitleSearchHomePage(
-              title: "Recently Played",
-            ),
-            const SizedBox(
-              height: 22,
-            ),
-            CustomSearchDetails(
-              onTap: (index) {
-                HomePageControlller.naviagtorToPlaySouraScreen(context :context,index:index);
+            CustomTextFieldHomePage(
+              streamCloseStatus: homePageControlller.closeStatusSearchOutputData,
+              onTapCloseIcon: () {
+                homePageControlller.onTapOutsideSearchTextField();
               },
-              itemCount: 3,
-              ListSouraModel: ConstantsValue.listQuarn,
+              isSearchNow: homePageControlller.tappedOnSearchTextField,
+              onTap: () {
+                homePageControlller.onTapSearchTextField();
+              },
             ),
+            //  if (homePageControlller.tappedOnSearchTextField == true)
+            StreamBuilder(
+                stream: homePageControlller.tappedStatusSearchOutputData,
+                builder: (context, snapshot) {
+                  print(snapshot.data);
+                  if (snapshot.data == null || snapshot.data == false) {
+                    return SizedBox();
+                  } else
+                    return CustomSearchFeature();
+                }),
             const CustomTitleSearchHomePage(
               title: "Recommended Sourahs",
             ),
             CustomRecommendeSourahs(
               listSouraModel: ConstantsValue.listQuarn,
               onTap: (index) {
-                                HomePageControlller.naviagtorToPlaySouraScreen(context:context,index: index);
-
+                HomePageControlller.naviagtorToPlaySouraScreen(
+                    context: context, index: index);
               },
-              
             )
           ],
         ),
